@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3ADDB4A4D063BFF5B8B3B2A4 /* Pods_spacex_launches.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A5A6D97959CE8BF32B91DD /* Pods_spacex_launches.framework */; };
 		E90993F4275959C700C5C863 /* spacex_launchesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90993F3275959C700C5C863 /* spacex_launchesApp.swift */; };
 		E90993F6275959C700C5C863 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90993F5275959C700C5C863 /* ContentView.swift */; };
 		E90993F8275959C800C5C863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E90993F7275959C800C5C863 /* Assets.xcassets */; };
@@ -14,6 +15,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02680EA871AA60AD38FDD4E4 /* Pods-spacex-launches.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spacex-launches.debug.xcconfig"; path = "Target Support Files/Pods-spacex-launches/Pods-spacex-launches.debug.xcconfig"; sourceTree = "<group>"; };
+		21A5A6D97959CE8BF32B91DD /* Pods_spacex_launches.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_spacex_launches.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C708A9AD69C3C770504697A9 /* Pods-spacex-launches.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spacex-launches.release.xcconfig"; path = "Target Support Files/Pods-spacex-launches/Pods-spacex-launches.release.xcconfig"; sourceTree = "<group>"; };
 		E90993F0275959C700C5C863 /* spacex-launches.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "spacex-launches.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90993F3275959C700C5C863 /* spacex_launchesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spacex_launchesApp.swift; sourceTree = "<group>"; };
 		E90993F5275959C700C5C863 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,17 +30,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ADDB4A4D063BFF5B8B3B2A4 /* Pods_spacex_launches.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A257A382596017381C5797C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21A5A6D97959CE8BF32B91DD /* Pods_spacex_launches.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BAD73A0C124281C6706AB5B8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				02680EA871AA60AD38FDD4E4 /* Pods-spacex-launches.debug.xcconfig */,
+				C708A9AD69C3C770504697A9 /* Pods-spacex-launches.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E90993E7275959C700C5C863 = {
 			isa = PBXGroup;
 			children = (
 				E90993F2275959C700C5C863 /* spacex-launches */,
 				E90993F1275959C700C5C863 /* Products */,
+				BAD73A0C124281C6706AB5B8 /* Pods */,
+				A257A382596017381C5797C3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E90993FE275959C800C5C863 /* Build configuration list for PBXNativeTarget "spacex-launches" */;
 			buildPhases = (
+				130DD006A9DC3F72DD0D414D /* [CP] Check Pods Manifest.lock */,
 				E90993EC275959C700C5C863 /* Sources */,
 				E90993ED275959C700C5C863 /* Frameworks */,
 				E90993EE275959C700C5C863 /* Resources */,
+				E909940127595AE000C5C863 /* ShellScript */,
+				403A678FEA1CE9346A86F53A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,6 +159,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		130DD006A9DC3F72DD0D414D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-spacex-launches-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		403A678FEA1CE9346A86F53A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spacex-launches/Pods-spacex-launches-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-spacex-launches/Pods-spacex-launches-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-spacex-launches/Pods-spacex-launches-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E909940127595AE000C5C863 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E90993EC275959C700C5C863 /* Sources */ = {
@@ -263,6 +350,7 @@
 		};
 		E90993FF275959C800C5C863 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02680EA871AA60AD38FDD4E4 /* Pods-spacex-launches.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -293,6 +381,7 @@
 		};
 		E9099400275959C800C5C863 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C708A9AD69C3C770504697A9 /* Pods-spacex-launches.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
