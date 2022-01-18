@@ -10,9 +10,17 @@ import Combine
 
 class LaunchesViewModel: ObservableObject {
     
-    @Published var launches = [LaunchModel]()
+    @Published var launches: [LaunchModel] = [LaunchModel]()
     @Published var launchesLoadingError: String = ""
     @Published var showAlert: Bool = false
+    
+    @Published var searchText: String = "" {
+        didSet {
+            filterLaunches()
+        }
+    }
+    
+    private var allLaunches = [LaunchModel]()
     
     private var bag: Set<AnyCancellable> = []
     var dataManager: ServiceProtocol
@@ -30,7 +38,9 @@ class LaunchesViewModel: ObservableObject {
                 } else {
                     guard let launchesResponse = response.value else { return }
                     
-                    self?.launches = launchesResponse.launches
+                    self?.allLaunches = launchesResponse.launches
+                    
+                    self?.filterLaunches()
                 }
             }
             .store(in: &bag)
@@ -40,5 +50,11 @@ class LaunchesViewModel: ObservableObject {
         launchesLoadingError = error.backendError == nil ?
         error.initialError.localizedDescription
         : error.backendError!.message
+    }
+    
+    private func filterLaunches() {
+        launches = searchText == "" ? allLaunches : allLaunches.filter({
+                $0.name.contains(searchText) || $0.details?.contains(searchText) ?? false || $0.rocket?.contains(searchText) ?? false
+        })
     }
 }
