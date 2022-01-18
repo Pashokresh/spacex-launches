@@ -1,0 +1,11 @@
+disabled_rules:
+  - comment_spacing
+  - trailing_whitespace
+  - vertical_whitespace
+
+excluded:
+  - Carthage
+  - Pods
+  - Source/ExcludedFolder
+  - Source/ExcludedFile.swift
+  - Source/*/ExcludedFile.swift

@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct spacex_launchesApp: App {
+struct SpacexLaunchesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LaunchesListView()
         }
     }
 }
