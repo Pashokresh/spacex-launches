@@ -1,5 +1,5 @@
 //
-//  Utils.swift
+//  Extensions.swift
 //  SpaceXLaunches
 //
 //  Created by Pavel on 19.01.2022.

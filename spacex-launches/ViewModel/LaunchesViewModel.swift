@@ -14,6 +14,15 @@ class LaunchesViewModel: ObservableObject {
     @Published var launchesLoadingError: String = ""
     @Published var showAlert: Bool = false
     
+    @Published var sortingType: SortingType {
+        didSet {
+            launches = sortLaunches(launches)
+            if oldValue != sortingType {
+                userSettings.updateSortingParameter(sortingType: sortingType)
+            }
+        }
+    }
+    
     @Published var searchText: String = "" {
         didSet {
             filterLaunches()
@@ -23,10 +32,14 @@ class LaunchesViewModel: ObservableObject {
     private var allLaunches = [LaunchModel]()
     
     private var bag: Set<AnyCancellable> = []
-    var dataManager: ServiceProtocol
+    private var dataManager: ServiceProtocol
+    private var userSettings: UserSettings
     
-    init(dataManager: ServiceProtocol = Service.shared) {
+    init(dataManager: ServiceProtocol = Service.shared, userSettings: UserSettings = UserSettings.shared) {
         self.dataManager = dataManager
+        self.userSettings = userSettings
+        self.sortingType = self.userSettings.getSortingParamter()
+        
         fetchLaunches()
     }
     
@@ -47,17 +60,33 @@ class LaunchesViewModel: ObservableObject {
             .store(in: &bag)
     }
     
-    func createAlert(with error: NetworkError) {
+    private func createAlert(with error: NetworkError) {
         launchesLoadingError = error.backendError == nil ?
         error.initialError.localizedDescription
         : error.backendError!.message
     }
     
     private func filterLaunches() {
-        launches = searchText == "" ? allLaunches : allLaunches.filter({
-                $0.name.contains(searchText)
+        launches = sortLaunches(searchText == "" ? allLaunches : allLaunches.filter({
+            $0.name.contains(searchText)
             || $0.details?.contains(searchText) ?? false
             || $0.rocket?.contains(searchText) ?? false
-        })
+        }))
+    }
+    
+    private func sortLaunches(_ launches: [LaunchModel]) -> [LaunchModel] {
+        return launches.sorted { first, second in
+            switch self.sortingType {
+            case .dateAsc:
+                return first.date ?? Date() < second.date ?? Date()
+            case .dateDesc:
+                return first.date ?? Date.init(timeIntervalSince1970: 0)
+                > second.date ?? Date.init(timeIntervalSince1970: 0)
+            case .nameAsc:
+                return first.name < second.name
+            case .nameDesc:
+                return first.name > second.name
+            }
+        }
     }
 }

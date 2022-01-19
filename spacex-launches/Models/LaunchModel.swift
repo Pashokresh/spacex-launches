@@ -77,14 +77,14 @@ struct LaunchModel: Decodable, Identifiable {
 
 extension LaunchModel {
     var fireDate: Date? {
-        transform(interval: fireDateStamp)
+        convert(interval: fireDateStamp)
     }
     
     var date: Date? {
-        transform(interval: dateStamp)
+        convert(interval: dateStamp)
     }
     
-    private func transform(interval: Int64?) -> Date? {
+    private func convert(interval: Int64?) -> Date? {
         guard let interval = interval else { return nil }
         let timeInterval = TimeInterval(interval)
         return Date(timeIntervalSince1970: timeInterval)
