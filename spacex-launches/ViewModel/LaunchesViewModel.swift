@@ -34,6 +34,7 @@ class LaunchesViewModel: ObservableObject {
         dataManager.fetchLaunches()
             .sink { [weak self] response in
                 if let error = response.error {
+                    self?.showAlert = true
                     self?.createAlert(with: error)
                 } else {
                     guard let launchesResponse = response.value else { return }
@@ -54,7 +55,9 @@ class LaunchesViewModel: ObservableObject {
     
     private func filterLaunches() {
         launches = searchText == "" ? allLaunches : allLaunches.filter({
-                $0.name.contains(searchText) || $0.details?.contains(searchText) ?? false || $0.rocket?.contains(searchText) ?? false
+                $0.name.contains(searchText)
+            || $0.details?.contains(searchText) ?? false
+            || $0.rocket?.contains(searchText) ?? false
         })
     }
 }

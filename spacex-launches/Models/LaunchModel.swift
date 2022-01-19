@@ -57,6 +57,22 @@ struct LaunchModel: Decodable, Identifiable {
         dateStamp = try values.decode(Int64?.self, forKey: .dateStamp)
         
     }
+    
+    init(fireDateStamp: Int64?,
+         rocket: String?,
+         success: Bool?,
+         details: String?,
+         flightNumber: Int64?,
+         name: String,
+         dateStamp: Int64?) {
+        self.fireDateStamp = fireDateStamp
+        self.rocket = rocket
+        self.success = success
+        self.details = details
+        self.flightNumber = flightNumber
+        self.name = name
+        self.dateStamp = dateStamp
+    }
 }
 
 extension LaunchModel {

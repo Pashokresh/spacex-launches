@@ -15,10 +15,20 @@ struct LaunchesListView: View {
         NavigationView {
             List {
                 ForEach(launchesViewModel.launches, id: \.id) { launch in
-                    Text(launch.name)
-                }
+                    NavigationLink(
+                        destination: LaunchDetailView(launch: launch),
+                        label: {
+                            Text(launch.name)
+                        }
+                    )}
             }.navigationTitle("Space-X Launches")
+                .navigationBarTitleDisplayMode(.large)
         }.searchable(text: $launchesViewModel.searchText)
+        .alert(isPresented: $launchesViewModel.showAlert) {
+                Alert(title: Text("Error"),
+                      message: Text(launchesViewModel.launchesLoadingError),
+                      dismissButton: .default(Text("OK")))
+        }.navigationViewStyle(.stack)
     }
 }
 
